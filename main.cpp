@@ -177,7 +177,7 @@ int main()
 
 				for(int j = 0; j < i; j++)//(i + n) < 11; i++)
 				{
-					create(obj[(i + n - 1)]);
+					obj[i + n - 1] = create(obj[(i + n - 1)]);
 				}
 
 				n += i;
