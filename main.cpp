@@ -21,24 +21,27 @@ class item
 	    string name_of_item, name_of_owner, desc;
 	    float price;
 	    int b_id;
+
 };
 
-void create(item obj1)
+item create(item obji)
 {
 	cout<<"\nEnter the Name of the Item\n";
-	getline(cin, obj1.name_of_item);
+	getline(cin, obji.name_of_item);
 	cout<<"\nEnter the Name of the Owner\n";
-	getline(cin, obj1.name_of_owner);
+	getline(cin, obji.name_of_owner);
 	cout<<"\nEnter Description of Item in less than 50 words\n";
-	getline(cin, obj1.desc);
+	getline(cin, obji.desc);
 
 
-	cout<<obj1.name_of_item<<"\t"<<obj1.name_of_owner<<"\t"<<obj1.desc<<endl;
+	cout<<obji.name_of_item<<"\t"<<obji.name_of_owner<<"\t"<<obji.desc<<endl;
+	return (obji);
 }
 
-void disp(item objd)
+void disp(item obji)
 {
-    cout<<objd.name_of_item<<"\t"<<objd.name_of_owner<<"\t"<<objd.desc<<endl;
+    cout<<obji.name_of_item<<"\t"<<obji.name_of_owner<<"\t"<<obji.desc<<endl;
+
 }
 
 void auction(item objs[], int n)
@@ -67,7 +70,7 @@ void auction(item objs[], int n)
 	for(i = 0; i < n; i++)
 	{
 		cout<<"\nItem on sale is:\nName:\t"<<objs[i].name_of_item<<"\nDesc\t"<<objs[i].desc<<endl;
-    	cout<<"\nBase Price: ₹100.00\n";
+    	cout<<"\nBase Price: ?100.00\n";
 
     	do
     	{
@@ -120,7 +123,7 @@ int main()
 
 	for(i = 0; i < n; i++)
 	{
-		create(obj[i]);
+	   obj[i]=create(obj[i]);
 	}
 
 	while(i != 5)
@@ -141,11 +144,13 @@ int main()
 					goto L;
 				}
 
+
 				cin.ignore();
 
 				for(i = 0; i < n; i++)
 				{
-					create(obj[i]);
+				  obj[i]=create(obj[i]);
+
 				}
 
 				break;
@@ -186,7 +191,7 @@ int main()
 			    for(i = 0; i < n; i++)
 			    {
 			        disp(obj[i]);
-			        //cout<<obj[i].name_of_item<<"\t"<<obj[i].name_of_owner<<"\t"<<obj[i].desc<<endl;
+			       // cout<<obj[i].name_of_item<<"\t"<<obj[i].name_of_owner<<"\t"<<obj[i].desc<<endl;
 			    }
 
 			    break;
