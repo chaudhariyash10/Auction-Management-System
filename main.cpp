@@ -14,16 +14,16 @@ Yash Chaudhari	  21910388	233066
 #include <conio.h>
 #include <time.h>
 #include <fstream>
-#include <ctype.h>
 #include <string>
 #include <vector>
 using namespace std;
 
 class item
 {
-public:
     string name_of_item, name_of_owner, desc;
     float price;
+
+public:
     int b_id, flag;
 
     item()
@@ -32,27 +32,83 @@ public:
         b_id = 0;
         flag = 1;
     }
+
+    void setNameOfItem(string name);
+    void setNameOfOwner(string name);
+    void setDesc(string desc);
+    void setPrice(float price);
+
+    string getNameOfItem();
+    string getNameOfOwner();
+    string getDesc();
+    float getPrice();
 };
+
+float item::getPrice()
+{
+    return this->price;
+}
+
+string item:: getDesc()
+{
+    return this->desc;
+}
+
+string item::getNameOfItem()
+{
+    return this->name_of_item;
+}
+
+string item::getNameOfOwner()
+{
+    return this->name_of_owner;
+}
+
+void item::setPrice(float price)
+{
+    this->price = price;
+}
+
+void item::setNameOfItem(string name)
+{
+    this->name_of_item = name;
+}
+
+void item::setNameOfOwner(string name)
+{
+    this->name_of_owner = name;
+}
+
+void item::setDesc(string desc)
+{
+    this->desc = desc;
+}
 
 void disp(item obji)
 {
     if (obji.flag == 1)
     {
-        cout << obji.name_of_item << "\t\t" << obji.name_of_owner << "\t\t" << obji.desc << endl;
+        cout << obji.getNameOfItem() << "\t\t" << obji.getNameOfOwner() << "\t\t" << obji.getDesc() << endl;
     }
 }
 
 item create()
 {
     item obji;
+    string temp;
     cin.ignore();
     cout << "\nEnter the Name of the Item\n";
-    getline(cin, obji.name_of_item);
-    cout << "\nEnter the Name of the Owner\n";
-    getline(cin, obji.name_of_owner);
+    getline(cin,temp);
+    obji.setNameOfItem(temp);
+    
+    cout<< "\nEnter the Name of the Owner\n";
+    getline(cin, temp);
+    obji.setNameOfOwner(temp);
+
     cout << "\nEnter Description of Item in less than 50 words\n";
-    getline(cin, obji.desc);
-    cout << "\nName of item\tName of Owner\tDescription\n";
+    getline(cin, temp);
+    obji.setDesc(temp);
+    cout<< "\nName of item\tName of Owner\tDescription\n";
     obji.flag = 1;
     disp(obji);
     return obji;
@@ -118,7 +174,7 @@ void auction(vector<item> obj)
     for (int i = 0; i < obj.size(); i++)
     {
     SALE:
-        cout << "\nItem on sale is:\nName:\t" << obj[i].name_of_item << "\nDesc\t" << obj[i].desc << endl;
+        cout << "\nItem on sale is:\nName:\t" << obj[i].getNameOfItem() << "\nDesc\t" << obj[i].getDesc() << endl;
         cout << "\nBase Price: 100.00\n(Press 0 0 to Pass)";
 
     Lab:
@@ -129,7 +185,12 @@ void auction(vector<item> obj)
         {
             //   obj[i].b_id = obj[i].price = j;
             i++;
-            goto SALE;
+            if (i < obj.size())
+                goto SALE;
+            else
+            {
+                goto time_out;
+            }
         }
 
         if (((price < 100.00) || (price < pre)) || ((j < 1) || (j > no_auctioneer)))
@@ -141,7 +202,7 @@ void auction(vector<item> obj)
         {
             pre = price;
             obj[i].b_id = j;
-            obj[i].price = pre;
+            obj[i].setPrice(pre);
             obj[i].flag = 0;
             clock_t start = clock();
             cout << "\nTimer: 5 sec\nPlease enter the input:\n";
@@ -150,7 +211,7 @@ void auction(vector<item> obj)
             {
                 if (((clock() - start) / CLOCKS_PER_SEC) >= 5)
                 {
-                    cout << "\nTIMEOUT 5 sec . . .\n";
+                    cout << "\nTIMEOUT 5 sec .........................................................................\n";
 
                     if (i < (no_auctioneer - 1))
                     {
@@ -178,8 +239,8 @@ time_out:
     //	for(i = 0; ((i < n) && obj[i].flag == 0); i++)
     for (int i = 0; i < obj.size(); i++)
     {
-        cout << obj[i].name_of_item << "\t\t" << obj[i].b_id << "\t\t" << obj[i].price << endl;
-        afile << obj[i].name_of_item << "\t\t" << obj[i].b_id << "\t\t" << obj[i].price << endl;
+        cout << obj[i].getNameOfItem()<< "\t\t" << obj[i].b_id << "\t\t" << obj[i].getPrice() << endl;
+        afile << obj[i].getNameOfItem() << "\t\t" << obj[i].b_id << "\t\t" << obj[i].getPrice() << endl;
     }
 
     cout << "\nDo you want to Display the complete file of the items sold?(1/0)\n";
@@ -244,14 +305,15 @@ int main()
                 f.open("samp.txt");
 
                 if (f.fail())
-                    throw "File does not exist....!!!!Complete at least one auction....";
+                    throw "Error: File does not exist....!!!!Complete at least one auction....";
 
                 if (f.is_open())
-                    std::cout << f.rdbuf();
+                    cout << f.rdbuf();
             }
             catch (const char *msg)
             {
-                cerr <<"\n"<< msg << '\n';
+                cerr << "\n"
+                     << msg << '\n';
             }
 
             break;

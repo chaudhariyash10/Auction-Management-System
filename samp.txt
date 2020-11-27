@@ -2,10 +2,5 @@
 Summary
 
 The List of Items Sold are:
-Item 1		2		220
-
-Summary
-
-The List of Items Sold are:
-Pen		1		110
-Pencil		1		120
+Pen		1		400
+Tea Cup		0		0
