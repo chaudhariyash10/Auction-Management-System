@@ -78,7 +78,7 @@ vector<string> take_auctioneers()
         cout << "\nDo you want to enter again(y/n) ?";
         cin >> again;
 
-        if(again != 'y')
+        if (again != 'y')
             wflag = false;
     } while (wflag);
 
@@ -204,9 +204,10 @@ int main()
     int choice, no_of_items = 0;
     item temp;
     vector<item> obj;
+    ifstream f;
     do
     {
-        cout << "\nEnter Choice\n1. Add item to Auction\n2. To Display the list of items\n3. To Start the auction\n4. To Exit\n";
+        cout << "\nEnter Choice\n1. Add item to Auction\n2. To Display the list of items\n3. To Start the auction\n4. Get details of previous Auction\n5. To Exit\n";
 
         cin >> choice;
 
@@ -236,11 +237,34 @@ int main()
             }
             break;
 
+        case 4:
+
+            try
+            {
+                f.open("samp.txt");
+
+                if (f.fail())
+                    throw "File does not exist....!!!!Complete at least one auction....";
+
+                if (f.is_open())
+                    std::cout << f.rdbuf();
+            }
+            catch (const char *msg)
+            {
+                cerr <<"\n"<< msg << '\n';
+            }
+
+            break;
+
+        case 5:
+            cout << "\nExitting.....!!!!";
+            break;
+
         default:
             cout << "\nInvalid Input\n";
             break;
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
